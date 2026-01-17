@@ -194,6 +194,9 @@ const CodeLab = (function () {
     const html = `
 <!DOCTYPE html>
 <html>
+<head>
+  <meta charset="UTF-8">
+</head>
 <body>
 <script>
 (function () {
