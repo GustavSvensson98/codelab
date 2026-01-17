@@ -17,7 +17,6 @@ const CodeLab = (function() {
     }
     
     .code-lab .editor-header {
-      width: 100%;
       background: #1e1e1e;
       color: white;
       padding: 8px 12px;
