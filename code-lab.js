@@ -32,6 +32,10 @@ const CodeLab = (function() {
       width: 100%;
       border-radius: 4px;
     }
+
+    .code-lab .code-editor {
+        width: 100%;
+    }
     
     .code-lab textarea {
       height: 180px;
