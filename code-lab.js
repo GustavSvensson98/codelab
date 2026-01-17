@@ -235,29 +235,36 @@ const CodeLab = (function () {
     currentIframe.style.display = 'none';
     document.body.appendChild(currentIframe);
 
-    messageHandler = function (e) {
-      if (!e.data || e.data.type !== 'code-lab-result') return;
+messageHandler = function (e) {
+  if (!e.data || e.data.type !== 'code-lab-result') return;
 
-      cleanup();
+  cleanup();
 
-      const { logs, hasError } = e.data;
-      output.textContent = logs.join('\n') || '(ingen output)';
+  const { logs, hasError } = e.data;
+  output.textContent = logs.join('\n') || '(ingen output)';
 
-      let allPassed = true;
+  let allPassed = true;
 
-      config.tests.forEach(test => {
-        const pass = !hasError && test.validator(logs, hasError);
-        const div = document.createElement('div');
-        div.className = pass ? 'pass' : 'fail';
-        div.textContent = (pass ? '✅ ' : '❌ ') + test.name;
-        if (!pass) allPassed = false;
-        testsBody.appendChild(div);
-      });
+  // Hämta användarkoden från editorn
+  const code = container.querySelector('textarea').value;
 
-      if (allPassed && !hasError) {
-        overlay.classList.remove('hidden');
-      }
-    };
+  config.tests.forEach(test => {
+    // Skicka logs, hasError och code till validatorn
+    const pass = !hasError && test.validator(logs, hasError, code);
+
+    const div = document.createElement('div');
+    div.className = pass ? 'pass' : 'fail';
+    div.textContent = (pass ? '✅ ' : '❌ ') + test.name;
+
+    if (!pass) allPassed = false;
+    testsBody.appendChild(div);
+  });
+
+  if (allPassed && !hasError) {
+    overlay.classList.remove('hidden');
+  }
+};
+
 
     window.addEventListener('message', messageHandler);
     currentIframe.src = url;
