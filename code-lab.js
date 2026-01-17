@@ -280,7 +280,7 @@ messageHandler = function (e) {
     return `
 <div class="code-lab">
   <div class="task">
-    <h3>${config.task.title}</h3>
+    <h3>📘 ${config.task.title}</h3>
     <p>${config.task.description}</p>
   </div>
 
